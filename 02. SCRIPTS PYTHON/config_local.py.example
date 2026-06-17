@@ -1,0 +1,6 @@
+# Copia este archivo como config_local.py y rellena tus datos.
+# config_local.py no se sube a git (está en .gitignore).
+
+ACCESS_TOKEN = "TU_TOKEN_AQUI"
+PERSON_EMAIL = "tu_email@ejemplo.com"
+ROOM_ID = ""

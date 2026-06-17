@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webex Chat en Vivo</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="layout">
+        <header class="header">
+            <div>
+                <h1>Webex Chat en Vivo</h1>
+                <p id="room-title">Cargando sala...</p>
+            </div>
+            <div class="status">
+                <span id="connection-status" class="badge">Conectando</span>
+                <span id="last-update" class="muted"></span>
+            </div>
+        </header>
+
+        <main class="main">
+            <section class="chat-panel">
+                <div id="messages" class="messages"></div>
+                <form id="send-form" class="send-form">
+                    <input
+                        id="message-input"
+                        type="text"
+                        placeholder="Escribe un mensaje (se envía como admin desde la web)..."
+                        autocomplete="off"
+                    >
+                    <button type="submit">Enviar</button>
+                </form>
+                <p class="hint">
+                    Los compañeros pueden escribir desde la app Webex. Esta página se actualiza cada 2 segundos.
+                </p>
+            </section>
+
+            <aside class="sidebar">
+                <section class="card">
+                    <h2>Invitar compañero</h2>
+                    <p class="muted">Necesita cuenta Webex con ese email.</p>
+                    <form id="invite-form" class="invite-form">
+                        <input
+                            id="invite-email"
+                            type="email"
+                            placeholder="compañero@espe.edu.ec"
+                            required
+                        >
+                        <button type="submit">Invitar</button>
+                    </form>
+                    <p id="invite-feedback" class="feedback"></p>
+                </section>
+
+                <section class="card">
+                    <h2>Participantes</h2>
+                    <ul id="members-list" class="members-list"></ul>
+                </section>
+            </aside>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
