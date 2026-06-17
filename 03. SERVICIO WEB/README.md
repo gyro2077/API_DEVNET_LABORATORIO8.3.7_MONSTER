@@ -8,8 +8,9 @@ Cada compañero inicia sesión con **su cuenta Webex** y chatea desde el navegad
 
 1. Ve a [developer.webex.com/my-apps](https://developer.webex.com/my-apps)
 2. Crea una **Integration**
-3. Agrega Redirect URI: `http://localhost:5000/oauth/callback`
-4. Copia **Client ID** y **Client Secret**
+3. Agrega Redirect URI: `http://localhost:5000/oauth/callback` (y la del servidor si aplica)
+4. En **Scopes**, marca **solo** `spark:all` (no mezcles con otros scopes individuales)
+5. Copia **Client ID** y **Client Secret**
 
 ### 2. Configurar `config_local.py`
 
@@ -22,6 +23,7 @@ OAUTH_CLIENT_ID = "tu_client_id"
 OAUTH_CLIENT_SECRET = "tu_client_secret"
 OAUTH_REDIRECT_URI = "http://localhost:5000/oauth/callback"
 FLASK_SECRET_KEY = "una-clave-secreta-larga"
+OAUTH_SCOPES = "spark:all"
 ```
 
 ## Ejecutar

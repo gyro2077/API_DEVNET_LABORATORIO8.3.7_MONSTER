@@ -14,13 +14,9 @@ OAUTH_REDIRECT_URI = os.environ.get(
 )
 FLASK_SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", "cambia-esta-clave-secreta")
 
-OAUTH_SCOPES = " ".join([
-    "spark:messages_read",
-    "spark:messages_write",
-    "spark:people_read",
-    "spark:rooms_read",
-    "spark:memberships_read",
-])
+# Debe coincidir EXACTAMENTE con los scopes marcados en developer.webex.com/my-apps
+# Opción recomendada: solo "spark:all" (marca únicamente spark:all en la Integration)
+OAUTH_SCOPES = "spark:all"
 
 try:
     from config_local import *  # noqa: F403

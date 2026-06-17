@@ -10,13 +10,7 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 
 import config as webex_config  # noqa: E402
 
-DEFAULT_OAUTH_SCOPES = " ".join([
-    "spark:messages_read",
-    "spark:messages_write",
-    "spark:people_read",
-    "spark:rooms_read",
-    "spark:memberships_read",
-])
+DEFAULT_OAUTH_SCOPES = "spark:all"
 
 ACCESS_TOKEN = webex_config.ACCESS_TOKEN
 ROOM_ID = webex_config.ROOM_ID

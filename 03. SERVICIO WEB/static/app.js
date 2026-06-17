@@ -193,6 +193,9 @@ function readLoginErrorFromUrl() {
     const error = params.get("error");
     if (!error) return "";
     if (error === "access_denied") return "Cancelaste el inicio de sesión.";
+    if (error === "invalid_scope") {
+        return "Scopes OAuth no coinciden. En developer.webex.com/my-apps marca 'spark:all' en tu Integration y usa OAUTH_SCOPES = 'spark:all' en config_local.py.";
+    }
     return `Error de login: ${error}`;
 }
 
