@@ -1,43 +1,49 @@
-# Servicio Web - Chat en vivo Webex
+# Servicio Web - Chat en vivo Webex con OAuth
 
-Panel web que muestra en tiempo casi real los mensajes de una sala Webex.
+Cada compañero inicia sesión con **su cuenta Webex** y chatea desde el navegador con su propio nombre.
 
-## Requisitos
+## Configuración (una sola vez)
 
-- Token y `ROOM_ID` configurados en `../02. SCRIPTS PYTHON/config_local.py`
-- Python 3 con `flask` y `requests`
+### 1. Crear Integration en Webex
 
-## Instalación
+1. Ve a [developer.webex.com/my-apps](https://developer.webex.com/my-apps)
+2. Crea una **Integration**
+3. Agrega Redirect URI: `http://localhost:5000/oauth/callback`
+4. Copia **Client ID** y **Client Secret**
 
-```bash
-cd "03. SERVICIO WEB"
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+### 2. Configurar `config_local.py`
+
+En `../02. SCRIPTS PYTHON/config_local.py`:
+
+```python
+ACCESS_TOKEN = "tu_token_admin"          # para invitar a la sala
+ROOM_ID = "tu_room_id"
+OAUTH_CLIENT_ID = "tu_client_id"
+OAUTH_CLIENT_SECRET = "tu_client_secret"
+OAUTH_REDIRECT_URI = "http://localhost:5000/oauth/callback"
+FLASK_SECRET_KEY = "una-clave-secreta-larga"
 ```
 
 ## Ejecutar
 
 ```bash
+cd "03. SERVICIO WEB"
 source .venv/bin/activate
 python app.py
 ```
 
-Abrir en el navegador: `http://localhost:5000`
+Abrir: `http://localhost:5000`
 
-Si ves error 401, renueva el token en [developer.webex.com](https://developer.webex.com) y actualiza `config_local.py`.
+## Flujo de uso
 
-## Uso con compañeros
+1. El compañero abre `http://localhost:5000`
+2. Clic en **Iniciar sesión con Webex**
+3. Autoriza con su cuenta Webex
+4. Entra al chat y escribe; los mensajes salen con **su email**
+5. La sala se actualiza en tiempo casi real (polling cada 2 s)
 
-1. Cada compañero debe tener cuenta Webex gratuita.
-2. Invítalo desde la web con su email de Webex.
-3. El compañero abre la app Webex y entra a la sala.
-4. Cuando escriba en la app, el mensaje aparecerá en esta página en unos segundos.
+## Notas
 
-## Endpoints
-
-- `GET /api/room` - información de la sala
-- `GET /api/messages` - listar mensajes
-- `POST /api/messages` - enviar mensaje como admin
-- `GET /api/members` - listar participantes
-- `POST /api/members` - invitar por email
+- Sí necesitan cuenta Webex gratuita.
+- Al iniciar sesión, el sistema intenta agregarlos automáticamente a la sala.
+- El `ACCESS_TOKEN` admin solo se usa para invitar miembros, no para enviar mensajes de los usuarios.
