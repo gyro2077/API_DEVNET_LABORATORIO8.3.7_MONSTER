@@ -12,6 +12,7 @@ from webex_client import (
     get_default_room_id,
     get_default_room_title,
     get_me,
+    get_oauth_redirect_uri,
     get_room,
     list_members,
     list_messages,
@@ -28,9 +29,13 @@ def _load_secret_key():
 
     scripts_dir = Path(__file__).resolve().parent.parent / "02. SCRIPTS PYTHON"
     sys.path.insert(0, str(scripts_dir))
-    from config import FLASK_SECRET_KEY  # noqa: E402
+    import config as webex_config  # noqa: E402
 
-    app.secret_key = FLASK_SECRET_KEY
+    app.secret_key = getattr(
+        webex_config,
+        "FLASK_SECRET_KEY",
+        "cambia-esta-clave-secreta",
+    )
 
 
 _load_secret_key()
@@ -196,6 +201,6 @@ def api_health():
 if __name__ == "__main__":
     check_config()
     print("Sala:", get_default_room_title())
-    print("OAuth redirect:", "http://localhost:5000/oauth/callback")
+    print("OAuth redirect:", get_oauth_redirect_uri())
     print("Cada usuario debe iniciar sesión con su cuenta Webex.")
     app.run(host="0.0.0.0", port=5000, debug=True)

@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 from urllib.parse import urlencode
@@ -7,15 +8,31 @@ import requests
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "02. SCRIPTS PYTHON"
 sys.path.insert(0, str(SCRIPTS_DIR))
 
-from config import (  # noqa: E402
-    ACCESS_TOKEN,
-    OAUTH_CLIENT_ID,
-    OAUTH_CLIENT_SECRET,
-    OAUTH_REDIRECT_URI,
-    OAUTH_SCOPES,
-    ROOM_ID,
-    ROOM_TITLE,
+import config as webex_config  # noqa: E402
+
+DEFAULT_OAUTH_SCOPES = " ".join([
+    "spark:messages_read",
+    "spark:messages_write",
+    "spark:people_read",
+    "spark:rooms_read",
+    "spark:memberships_read",
+])
+
+ACCESS_TOKEN = webex_config.ACCESS_TOKEN
+ROOM_ID = webex_config.ROOM_ID
+ROOM_TITLE = getattr(webex_config, "ROOM_TITLE", "DevNet Associate Training!")
+OAUTH_CLIENT_ID = getattr(webex_config, "OAUTH_CLIENT_ID", os.environ.get("WEBEX_OAUTH_CLIENT_ID", "TU_CLIENT_ID"))
+OAUTH_CLIENT_SECRET = getattr(
+    webex_config,
+    "OAUTH_CLIENT_SECRET",
+    os.environ.get("WEBEX_OAUTH_CLIENT_SECRET", "TU_CLIENT_SECRET"),
 )
+OAUTH_REDIRECT_URI = getattr(
+    webex_config,
+    "OAUTH_REDIRECT_URI",
+    os.environ.get("WEBEX_OAUTH_REDIRECT_URI", "http://localhost:5000/oauth/callback"),
+)
+OAUTH_SCOPES = getattr(webex_config, "OAUTH_SCOPES", DEFAULT_OAUTH_SCOPES)
 
 BASE_URL = "https://webexapis.com/v1"
 AUTHORIZE_URL = "https://webexapis.com/v1/authorize"
@@ -173,3 +190,7 @@ def get_default_room_id():
 
 def get_default_room_title():
     return ROOM_TITLE
+
+
+def get_oauth_redirect_uri():
+    return OAUTH_REDIRECT_URI
