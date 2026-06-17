@@ -4,3 +4,9 @@
 ACCESS_TOKEN = "TU_TOKEN_AQUI"
 PERSON_EMAIL = "tu_email@ejemplo.com"
 ROOM_ID = ""
+
+# Integration OAuth en https://developer.webex.com/my-apps
+OAUTH_CLIENT_ID = "TU_CLIENT_ID"
+OAUTH_CLIENT_SECRET = "TU_CLIENT_SECRET"
+OAUTH_REDIRECT_URI = "http://localhost:5000/oauth/callback"
+FLASK_SECRET_KEY = "cambia-esta-clave-secreta"
